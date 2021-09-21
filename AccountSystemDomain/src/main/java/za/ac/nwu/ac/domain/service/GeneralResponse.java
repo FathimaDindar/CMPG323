@@ -2,7 +2,6 @@ package za.ac.nwu.ac.domain.service;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.lang.Override;
 
 public class GeneralResponse<T> implements Serializable {
     private final boolean successful;
