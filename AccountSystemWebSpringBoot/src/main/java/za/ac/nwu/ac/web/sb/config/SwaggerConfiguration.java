@@ -13,11 +13,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Collections;
-
 @Configuration
 @EnableSwagger2
 @Import(springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class)
-
 public class SwaggerConfiguration {
     @Value("${swagger.application.version}")
     private String applicationVersion;
@@ -41,7 +39,7 @@ public class SwaggerConfiguration {
                 applicationDescription,
                 applicationVersion,
                 "",
-                new Contact("Your Name or Team Name", "", "email address"),
+                new Contact("Fathima", "", "fathimadindar01@gmail.com"),
                 "",
                 "",
                 Collections.emptyList());
