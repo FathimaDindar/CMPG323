@@ -26,7 +26,7 @@ public class Members implements Serializable {
     @Id
     @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "FATHIMA.FATHI_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FATHI_GENERIC_SEQ")
-    @Column(name = "Account_Type_ID")
+    @Column(name = "Member_ID")
     public Long getMemberId() {
         return memberId;
     }
@@ -53,7 +53,7 @@ public class Members implements Serializable {
         this.surname = surname;
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "memberId", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<AccountTransaction> getAccountTransactions() {
         return accountTransactions;
     }
@@ -62,12 +62,12 @@ public class Members implements Serializable {
         this.accountTransactions = accountTransactions;
     }
 
-    @OneToMany(targetEntity = MilesAccount.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = MilesAccount.class, fetch = FetchType.LAZY, mappedBy = "memberId", orphanRemoval = true, cascade = CascadeType.PERSIST)
     public Set<MilesAccount> getMilesAccounts() {
         return milesAccounts;
     }
 
-    public void setMilesAccounts(Set<MilesAccount> MilesAccounts){
+    public void setMilesAccounts(Set<MilesAccount> milesAccounts) {
         this.milesAccounts = milesAccounts;
     }
 

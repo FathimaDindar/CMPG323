@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import za.ac.nwu.ac.domain.service.GeneralResponse;
 
 @RestController
-@RequestMapping("account-type")
+@RequestMapping("account-transaction")
 public class AccountTransactionController {
 
     @GetMapping("/all")

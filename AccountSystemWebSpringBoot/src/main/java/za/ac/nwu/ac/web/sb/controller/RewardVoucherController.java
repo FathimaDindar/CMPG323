@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import za.ac.nwu.ac.domain.service.GeneralResponse;
 
 @RestController
-@RequestMapping("account-type")
+@RequestMapping("reward-voucher")
 public class RewardVoucherController {
 
     @GetMapping("/all")
