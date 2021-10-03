@@ -23,6 +23,14 @@ public class Members implements Serializable {
         this.surname = surname;
     }
 
+    public Members() {
+    }
+
+    public Members(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
     @Id
     @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "FATHIMA.FATHI_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FATHI_GENERIC_SEQ")

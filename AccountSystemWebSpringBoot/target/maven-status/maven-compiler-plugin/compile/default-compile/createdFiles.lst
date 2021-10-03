@@ -1,6 +1,4 @@
 za\ac\nwu\ac\web\sb\config\WebConfig.class
-za\ac\nwu\ac\web\sb\controller\RewardVoucherController.class
-za\ac\nwu\ac\web\sb\controller\GameboardController.class
 za\ac\nwu\ac\web\sb\controller\MembersController.class
 za\ac\nwu\ac\web\sb\config\SwaggerConfiguration.class
 za\ac\nwu\ac\web\sb\controller\MilesAccountController.class

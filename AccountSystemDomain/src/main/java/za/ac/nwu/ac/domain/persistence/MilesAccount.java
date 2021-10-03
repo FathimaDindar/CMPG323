@@ -23,6 +23,11 @@ public class MilesAccount implements Serializable {
     public MilesAccount() {
     }
 
+    public MilesAccount(Members memberId, Long miles) {
+        this.memberId = memberId;
+        this.miles = miles;
+    }
+
     @Id
     @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "FATHIMA.FATHI_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FATHI_GENERIC_SEQ")

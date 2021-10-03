@@ -1,7 +1,5 @@
 za\ac\nwu\ac\repo\persistence\MembersRepository.class
-za\ac\nwu\ac\repo\persistence\GameboardRepository.class
-za\ac\nwu\ac\repo\persistence\AccountTypeRepository.class
 za\ac\nwu\ac\repo\persistence\MilesAccountRepository.class
-za\ac\nwu\ac\repo\persistence\RewardVoucherRepository.class
+za\ac\nwu\ac\repo\persistence\AccountTypeRepository.class
 za\ac\nwu\ac\repo\config\RepositoryConfig.class
 za\ac\nwu\ac\repo\persistence\AccountTransactionRepository.class
