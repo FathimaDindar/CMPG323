@@ -4,7 +4,6 @@ package za.ac.nwu.ac.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.Members;
 import za.ac.nwu.ac.domain.persistence.MilesAccount;
 
@@ -17,11 +16,11 @@ public class MilesAccountDto implements Serializable {
 
     private static final long serialVersionUID = 4184713481290456881L;
 
-    private Members memberId;
+    private String username;
     private Long miles;
 
-    public MilesAccountDto(Members memberId, Long miles) {
-        this.memberId = memberId;
+    public MilesAccountDto(String username, Long miles) {
+        this.username = username;
         this.miles = miles;
     }
 
@@ -29,23 +28,24 @@ public class MilesAccountDto implements Serializable {
     }
 
     public MilesAccountDto(MilesAccount milesAccount){
-        this.setMemberId(milesAccount.getMemberId());
+        this.setUsername(milesAccount.getUsername());
         this.setMiles(milesAccount.getMiles());
     }
 
     @ApiModelProperty(position = 1,
-            value = "Members MemberId",
-            name = "MemberId",
-            notes = "MemberId to whom MilesAccount belongs",
+            value = "MilesAccount Username",
+            name = "Username",
+            notes = "Uniquely identifies members",
             dataType = "java.lang.String",
-            example = "00000001",
+            example = "FDindar",
             required = true)
-    public Members getMemberId() {
-        return memberId;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setMemberId(Members memberId) {
-        this.memberId = memberId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @ApiModelProperty(position = 2,
@@ -68,23 +68,23 @@ public class MilesAccountDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MilesAccountDto that = (MilesAccountDto) o;
-        return Objects.equals(memberId, that.memberId) && Objects.equals(miles, that.miles);
-    }
-
-    @JsonIgnore
-    public MilesAccount getMilesAccount(){
-        return new MilesAccount(getMemberId(), getMiles());
+        return Objects.equals(username, that.username) && Objects.equals(miles, that.miles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, miles);
+        return Objects.hash(username, miles);
+    }
+
+    @JsonIgnore
+    public MilesAccount getMilesAccount(){
+        return new MilesAccount(getUsername(), getMiles());
     }
 
     @Override
     public String toString() {
         return "MilesAccountDto{" +
-                "memberId=" + memberId +
+                "username='" + username + '\'' +
                 ", miles=" + miles +
                 '}';
     }

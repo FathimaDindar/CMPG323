@@ -2,10 +2,8 @@ package za.ac.nwu.ac.domain.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.Members;
 
 import java.io.Serializable;
@@ -17,10 +15,12 @@ public class MembersDto implements Serializable {
 
     private static final long serialVersionUID = -3675411777951570019L;
 
+    private String username;
     private String name;
     private String surname;
 
-    public MembersDto(String name, String surname) {
+    public MembersDto(String username, String name, String surname) {
+        this.username = username;
         this.name = name;
         this.surname = surname;
     }
@@ -28,12 +28,28 @@ public class MembersDto implements Serializable {
     public MembersDto() {
     }
 
-    public MembersDto(Members member){
-        this.setName(member.getName());
-        this.setSurname(member.getSurname());
+    public MembersDto(Members members){
+        this.setUsername(members.getUsername());
+        this.setName(members.getName());
+        this.setSurname(members.getSurname());
     }
 
     @ApiModelProperty(position = 1,
+            value = "Members Initials and Surname",
+            name = "Initials and Surname",
+            notes = "The intials and surname of the member",
+            dataType = "java.lang.String",
+            example = "FDindar",
+            required = true)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @ApiModelProperty(position = 2,
             value = "Members Name",
             name = "Name",
             notes = "The name of the member",
@@ -48,7 +64,7 @@ public class MembersDto implements Serializable {
         this.name = name;
     }
 
-    @ApiModelProperty(position = 2,
+    @ApiModelProperty(position = 3,
             value = "Members Surname",
             name = "Surname",
             notes = "The surname of the member",
@@ -67,24 +83,25 @@ public class MembersDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MembersDto memberDto = (MembersDto) o;
-        return Objects.equals(name, memberDto.name) && Objects.equals(surname, memberDto.surname);
-    }
-
-    @JsonIgnore
-    public Members getMembers(){
-        return new Members(getName(), getSurname());
+        MembersDto that = (MembersDto) o;
+        return Objects.equals(username, that.username) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname);
+        return Objects.hash(username, name, surname);
+    }
+
+    @JsonIgnore
+    public Members getMembers(){
+        return new Members(username, getName(), getSurname());
     }
 
     @Override
     public String toString() {
-        return "MemberDto{" +
-                "name='" + name + '\'' +
+        return "MembersDto{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
     }

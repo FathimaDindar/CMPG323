@@ -9,24 +9,28 @@ import java.util.Objects;
 public class MilesAccount implements Serializable {
 
     private static final long serialVersionUID = -4678420392275548659L;
+    
     private Long accountId;
     private Members memberId;
+    private String username;
     private Long miles;
 
 
-    public MilesAccount(Long accountId, Members memberId, Long miles) {
+    public MilesAccount(Long accountId, Members memberId, String username, Long miles) {
         this.accountId = accountId;
         this.memberId = memberId;
+        this.username = username;
         this.miles = miles;
     }
 
     public MilesAccount() {
     }
 
-    public MilesAccount(Members memberId, Long miles) {
-        this.memberId = memberId;
+    public MilesAccount(String username, Long miles) {
+        this.username = username;
         this.miles = miles;
     }
+
 
     @Id
     @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "FATHIMA.FATHI_GENERIC_SEQ", allocationSize = 1)
@@ -50,6 +54,15 @@ public class MilesAccount implements Serializable {
         this.memberId = memberId;
     }
 
+    @Column(name = "Member_Username")
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Column(name = "Miles")
     public Long getMiles() {
         return miles;
@@ -58,18 +71,19 @@ public class MilesAccount implements Serializable {
     public void setMiles(Long miles) {
         this.miles = miles;
     }
+    
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MilesAccount that = (MilesAccount) o;
-        return Objects.equals(accountId, that.accountId) && Objects.equals(memberId, that.memberId) && Objects.equals(miles, that.miles);
+        return Objects.equals(accountId, that.accountId) && Objects.equals(memberId, that.memberId) && Objects.equals(username, that.username) && Objects.equals(miles, that.miles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, memberId, miles);
+        return Objects.hash(accountId, memberId, username, miles);
     }
 
     @Override
@@ -77,7 +91,9 @@ public class MilesAccount implements Serializable {
         return "MilesAccount{" +
                 "accountId=" + accountId +
                 ", memberId=" + memberId +
+                ", username='" + username + '\'' +
                 ", miles=" + miles +
                 '}';
     }
+
 }
