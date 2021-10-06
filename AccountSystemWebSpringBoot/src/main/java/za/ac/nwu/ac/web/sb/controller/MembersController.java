@@ -31,9 +31,9 @@ public class MembersController {
     }
 
     @GetMapping("/all")
-    @ApiOperation(value = "Gets all the configured Memberss.", notes = "Returns a list of Members.")
+    @ApiOperation(value = "Gets all the configured Members.", notes = "Returns a list of Members.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message ="Memberss returned", response = GeneralResponse.class),
+            @ApiResponse(code = 200, message ="Members returned", response = GeneralResponse.class),
             @ApiResponse (code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})

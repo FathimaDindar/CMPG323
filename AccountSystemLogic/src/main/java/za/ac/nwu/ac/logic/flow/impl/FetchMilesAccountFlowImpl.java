@@ -25,4 +25,19 @@ public class FetchMilesAccountFlowImpl implements FetchMilesAccountFlow {
         return milesAccountTranslator.getAllMilesAccounts();
     }
 
+    @Override
+    public MilesAccountDto getMilesAccountByUsername(String username) {
+        return milesAccountTranslator.getMilesAccountByUsername(username);
+    }
+
+    @Override
+    public int addMilesByUsername(Integer miles, String username) {
+        return milesAccountTranslator.addMilesByUsername(miles, username);
+    }
+
+    @Override
+    public int subtractMilesByUsername(Integer miles, String username) {
+        return milesAccountTranslator.subtractMilesByUsername(miles, username);
+    }
+
 }

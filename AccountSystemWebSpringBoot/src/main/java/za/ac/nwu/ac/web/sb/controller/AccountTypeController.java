@@ -1,9 +1,6 @@
 package za.ac.nwu.ac.web.sb.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -57,5 +54,49 @@ public class AccountTypeController {
         GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true, accountTypeResponse);
          return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @GetMapping("{mnemonic}")
+    @ApiOperation(value = "Fetches the specified AccountType.", notes = "Fetches the specified AccountType in DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Goal Found", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<AccountTypeDto>> getAccountType(
+            @ApiParam(value = "The mnemonic that uniquely identifies the Account.",
+                    example = "MILES",
+                    name = "mnemonic",
+                    required = true)
+            @PathVariable final String mnemonic){
+        AccountTypeDto accountType = fetchAccountTypeFlow.getAccountTypeByMnemonic(mnemonic);
+
+        GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true, accountType);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+//    @PutMapping("/mnemonic")
+//    @ApiOperation(value = "Alters the specified AccountType.", notes = "Fetches the specified AccountType in DB.")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 201, message = "Goal Found", response = GeneralResponse.class),
+//            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+//            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+//    public ResponseEntity<GeneralResponse<AccountTypeDto>> alterAccountTypeByMnemonic(
+//            @ApiParam(value = "The accountTypeName for which the mnemonic will change",
+//                    example = "Game Play",
+//                    name = "accountTypeName",
+//                    required = true)
+//            @RequestParam("accountTypeName") final String accountTypeName,
+//            @ApiParam(value = "The mnemonic that changes the Account.",
+//                    example = "MILLIONS",
+//                    name = "mnemonic",
+//                    required = true)
+//            @RequestParam("mnemonic") final String mnemonic){
+//        AccountTypeDto accountType = ((fetchAccountTypeFlow.alterAccountTypeByMnemonic(accountTypeName,mnemonic)).intValue());
+//
+//        GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true, accountType);
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//
+//    }
 
 }

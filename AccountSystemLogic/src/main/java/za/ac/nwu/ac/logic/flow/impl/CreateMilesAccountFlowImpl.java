@@ -24,6 +24,9 @@ public class CreateMilesAccountFlowImpl implements CreateMilesAccountFlow {
 
     @Override
     public MilesAccountDto create(MilesAccountDto milesAccount) {
+        if(null == milesAccount.getMilesAddedDate()){
+            milesAccount.setMilesAddedDate(null);
+        }
         return milesAccountTranslator.create(milesAccount);
     }
 }

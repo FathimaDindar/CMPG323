@@ -2,6 +2,7 @@ package za.ac.nwu.ac.domain.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -13,22 +14,26 @@ public class MilesAccount implements Serializable {
     private Long accountId;
     private Members memberId;
     private String username;
-    private Long miles;
+    private Integer miles;
+    private LocalDate milesAddedDate;
 
 
-    public MilesAccount(Long accountId, Members memberId, String username, Long miles) {
+    public MilesAccount(Long accountId, Members memberId, String username, Integer miles, LocalDate milesAddedDate) {
         this.accountId = accountId;
         this.memberId = memberId;
         this.username = username;
         this.miles = miles;
+        this.milesAddedDate = milesAddedDate;
     }
+
 
     public MilesAccount() {
     }
 
-    public MilesAccount(String username, Long miles) {
+    public MilesAccount(String username, Integer miles, LocalDate milesAddedDate) {
         this.username = username;
         this.miles = miles;
+        this.milesAddedDate = milesAddedDate;
     }
 
 
@@ -64,26 +69,34 @@ public class MilesAccount implements Serializable {
     }
 
     @Column(name = "Miles")
-    public Long getMiles() {
+    public Integer getMiles() {
         return miles;
     }
 
-    public void setMiles(Long miles) {
+    public void setMiles(Integer miles) {
         this.miles = miles;
     }
-    
+
+    @Column(name = "Date_of_Miles_Added")
+    public LocalDate getMilesAddedDate() {
+        return milesAddedDate;
+    }
+
+    public void setMilesAddedDate(LocalDate milesAddedDate) {
+        this.milesAddedDate = milesAddedDate;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MilesAccount that = (MilesAccount) o;
-        return Objects.equals(accountId, that.accountId) && Objects.equals(memberId, that.memberId) && Objects.equals(username, that.username) && Objects.equals(miles, that.miles);
+        return Objects.equals(accountId, that.accountId) && Objects.equals(memberId, that.memberId) && Objects.equals(username, that.username) && Objects.equals(miles, that.miles) && Objects.equals(milesAddedDate, that.milesAddedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, memberId, username, miles);
+        return Objects.hash(accountId, memberId, username, miles, milesAddedDate);
     }
 
     @Override
@@ -93,6 +106,7 @@ public class MilesAccount implements Serializable {
                 ", memberId=" + memberId +
                 ", username='" + username + '\'' +
                 ", miles=" + miles +
+                ", milesAddedDate=" + milesAddedDate +
                 '}';
     }
 

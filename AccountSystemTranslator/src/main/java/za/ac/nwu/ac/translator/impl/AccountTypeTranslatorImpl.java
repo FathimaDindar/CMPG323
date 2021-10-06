@@ -7,7 +7,6 @@ import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.repo.persistence.AccountTypeRepository;
 import za.ac.nwu.ac.translator.AccountTypeTranslator;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,4 +44,34 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
             throw new RuntimeException("Unable to save to the DB", e);
         }
     }
+
+    @Override
+    public AccountTypeDto getAccountTypeByMnemonicNativeQuery(String mnemonic){
+        try{
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonicNativeQuery(mnemonic);
+            return new AccountTypeDto(accountType);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read data from the DB", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto getAccountTypeByMnemonic(String mnemonic){
+        try{
+            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonic(mnemonic);
+            return new AccountTypeDto(accountType);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read data from the DB", e);
+        }
+    }
+
+    @Override
+    public AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic){
+        try{
+            return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read data from the DB", e);
+        }
+    }
+
 }

@@ -94,5 +94,6 @@ public class AccountType implements Serializable {
                 ", creationDate=" + creationDate +
                 '}';
     }
+
 }
 

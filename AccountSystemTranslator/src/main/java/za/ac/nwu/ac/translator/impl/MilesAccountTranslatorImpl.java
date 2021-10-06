@@ -2,7 +2,9 @@ package za.ac.nwu.ac.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.dto.MilesAccountDto;
+import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.MilesAccount;
 import za.ac.nwu.ac.repo.persistence.MilesAccountRepository;
 import za.ac.nwu.ac.translator.MilesAccountTranslator;
@@ -42,6 +44,34 @@ public class MilesAccountTranslatorImpl implements MilesAccountTranslator {
             return new MilesAccountDto(milesAccount);
         }catch (Exception e){
             throw new RuntimeException("Unable to save to the DB", e);
+        }
+    }
+
+    @Override
+    public MilesAccountDto getMilesAccountByUsername(String username) {
+        try{
+            MilesAccount milesAccount = milesAccountRepository.getMilesAccountByUsername(username);
+            return new MilesAccountDto(milesAccount);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read data from the DB", e);
+        }
+    }
+
+    @Override
+    public int addMilesByUsername(Integer miles, String username ) {
+       try {
+           return milesAccountRepository.addMilesByUsername(miles, username);
+       }catch (Exception e){
+           throw new RuntimeException("Unable to read from the DB", e);
+       }
+    }
+
+    @Override
+    public int subtractMilesByUsername(Integer miles, String username) {
+        try {
+            return milesAccountRepository.subtractMilesByUsername(miles, username);
+        }catch (Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
         }
     }
 }
