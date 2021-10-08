@@ -29,15 +29,14 @@ public class CreateAccountTypeFlowImplTest {
 
     @Before
     public void setUp() throws Exception {
-//        translator = Mockito.mock(AccountTypeTranslator.class);
-//        flow = new CreateAccountTypeFlowImpl(translator);
+        translator = Mockito.mock(AccountTypeTranslator.class);
+        flow = new CreateAccountTypeFlowImpl(translator);
     }
 
     @After
     public void tearDown() throws Exception {
     }
 
-    @Ignore
     @Test
     public void create() {
 
@@ -49,12 +48,13 @@ public class CreateAccountTypeFlowImplTest {
 //        assertNotNull(result);
 //        verify(translator,atLeastOnce() ).create(any(AccountTypeDto.class));
 //        verify(translator,atLeastOnce()).create(eq(new AccountTypeDto()));
+//        verify(translator,times(1)).create(eq(null));
+//        AccountTypeDto accountTypeDto2 = new AccountTypeDto("mnemonic", "Name", LocalDate.now());
 
         AccountTypeDto accountTypeDto = new AccountTypeDto("mnemonic", "Name", LocalDate.now());
-        AccountTypeDto accountTypeDto2 = new AccountTypeDto("mnemonic", "Name", LocalDate.now());
-        when(translator.create(eq(null))).thenReturn(accountTypeDto2);
+        when(translator.create(eq(accountTypeDto))).thenReturn(accountTypeDto);
         AccountTypeDto result = flow.create(accountTypeDto);
-        verify(translator,times(1)).create(eq(null));
-        verify(translator,times(1)).create(eq(accountTypeDto2));
+        assertNotNull(accountTypeDto);
+        verify(translator,times(1)).create(eq(accountTypeDto));
     }
 }

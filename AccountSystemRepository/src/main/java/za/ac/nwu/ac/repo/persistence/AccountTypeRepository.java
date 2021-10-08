@@ -1,5 +1,7 @@
 package za.ac.nwu.ac.repo.persistence;
 
+import org.hibernate.annotations.SQLUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.persistence.AccountType;
+
+import javax.persistence.PostUpdate;
+import java.time.LocalDate;
 
 @Repository
 public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
@@ -27,7 +32,14 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
             "   FROM " +
             "       AccountType at" +
             "   WHERE at.mnemonic = :mnemonic ")
-    AccountType getAccountTypeByMnemonic(String mnemonic);
+    AccountTypeDto getAccountTypeByMnemonic(String mnemonic);
+
+    @Query(value = "SELECT " +
+            "       at" +
+            "   FROM " +
+            "       AccountType at" +
+            "   WHERE at.mnemonic = :mnemonic ")
+    AccountType getAccountTypeDbByMnemonic(String mnemonic);
 
     @Query(value = "SELECT new za.ac.nwu.ac.domain.dto.AccountTypeDto( " +
             "       at.mnemonic," +
@@ -37,5 +49,14 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
             "       AccountType at" +
             "   WHERE at.mnemonic = :mnemonic ")
     AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic);
+
+    @Modifying
+    @Query(value = "UPDATE" +
+            "         AccountType at" +
+            "   SET at.accountTypeName = :accountTypeName, at.creationDate = :creationDate" +
+            "   WHERE at.mnemonic = :mnemonic")
+    int updateAccountType(String mnemonic, String accountTypeName, LocalDate creationDate);
+
+
 
 }

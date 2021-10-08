@@ -14,29 +14,33 @@ public class Members implements Serializable {
     private String username;
     private String name;
     private String surname;
+    private Integer miles;
 
     private Set<MilesAccount> milesAccounts;
+    private Set<AccountTransaction> accountTransactions;
 
-    public Members(Long memberId, String username, String name, String surname) {
+    public Members(Long memberId, String username, String name, String surname, Integer miles) {
         this.memberId = memberId;
         this.username = username;
         this.name = name;
         this.surname = surname;
+        this.miles = miles;
     }
 
     public Members() {
     }
 
-    public Members(String username, String name, String surname) {
+    public Members(String username, String name, String surname, Integer miles) {
         this.username = username;
         this.name = name;
         this.surname = surname;
+        this.miles = miles;
     }
 
     @Id
     @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "FATHIMA.FATHI_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FATHI_GENERIC_SEQ")
-    @Column(name = "Member_ID")
+    @Column(name = "MEMBER_ID")
     public Long getMemberId() {
         return memberId;
     }
@@ -45,7 +49,7 @@ public class Members implements Serializable {
         this.memberId = memberId;
     }
 
-    @Column(name = "Member_Username")
+    @Column(name = "MEMBER_USERNAME")
     public String getUsername() {
         return username;
     }
@@ -54,7 +58,7 @@ public class Members implements Serializable {
         this.username = username;
     }
 
-    @Column(name = "Member_Fname")
+    @Column(name = "MEMBER_FNAME")
     public String getName() {
         return name;
     }
@@ -63,7 +67,7 @@ public class Members implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "Member_Lname")
+    @Column(name = "MEMBER_LNAME")
     public String getSurname() {
         return surname;
     }
@@ -72,8 +76,16 @@ public class Members implements Serializable {
         this.surname = surname;
     }
 
+    @Column(name = "MILES")
+    public Integer getMiles() {
+        return miles;
+    }
 
-    @OneToMany(targetEntity = MilesAccount.class, fetch = FetchType.LAZY, mappedBy = "memberId", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    public void setMiles(Integer miles) {
+        this.miles = miles;
+    }
+
+    @OneToMany(targetEntity = MilesAccount.class, fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true)
     public Set<MilesAccount> getMilesAccounts() {
         return milesAccounts;
     }
@@ -82,17 +94,27 @@ public class Members implements Serializable {
         this.milesAccounts = milesAccounts;
     }
 
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "member")
+    public Set<AccountTransaction> getAccountTransactions() {
+        return accountTransactions;
+    }
+
+    public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
+        this.accountTransactions = accountTransactions;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Members members = (Members) o;
-        return Objects.equals(memberId, members.memberId) && Objects.equals(username, members.username) && Objects.equals(name, members.name) && Objects.equals(surname, members.surname) && Objects.equals(milesAccounts, members.milesAccounts);
+        return Objects.equals(memberId, members.memberId) && Objects.equals(username, members.username) && Objects.equals(name, members.name) && Objects.equals(surname, members.surname) && Objects.equals(miles, members.miles) && Objects.equals(milesAccounts, members.milesAccounts) && Objects.equals(accountTransactions, members.accountTransactions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, username, name, surname, milesAccounts);
+        return Objects.hash(memberId, username, name, surname, miles, milesAccounts, accountTransactions);
     }
 
     @Override
@@ -102,7 +124,9 @@ public class Members implements Serializable {
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", miles=" + miles +
                 ", milesAccounts=" + milesAccounts +
+                ", accountTransactions=" + accountTransactions +
                 '}';
     }
 }

@@ -1,7 +1,11 @@
+C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\persistence\AccountTransactionDetails.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\persistence\MilesAccount.java
+C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\dto\AccountTransactionDto.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\dto\MembersDto.java
+C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\persistence\AccountTransaction.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\dto\AccountTypeDto.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\persistence\AccountType.java
+C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\dto\AccountTransactionDetailsDto.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\dto\MilesAccountDto.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\service\GeneralResponse.java
 C:\CMPG323\AccountSystem\AccountSystemDomain\src\main\java\za\ac\nwu\ac\domain\persistence\Members.java

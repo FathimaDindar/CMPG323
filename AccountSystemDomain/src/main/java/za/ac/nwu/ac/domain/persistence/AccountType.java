@@ -17,6 +17,8 @@ public class AccountType implements Serializable {
     private String accountTypeName;
     private LocalDate creationDate;
 
+    private Set<AccountTransaction> accountTransactions;
+
     public AccountType(Long accountTypeId, String mnemonic, String accountTypeName, LocalDate creationDate) {
         this.accountTypeId = accountTypeId;
         this.mnemonic = mnemonic;
@@ -47,6 +49,7 @@ public class AccountType implements Serializable {
         this.accountTypeId = accountTypeId;
     }
 
+    @Column(name = "MNEMONIC")
     public String getMnemonic() {
         return mnemonic;
     }
@@ -55,6 +58,7 @@ public class AccountType implements Serializable {
         this.mnemonic = mnemonic;
     }
 
+    @Column(name = "ACCOUNT_TYPE_NAME")
     public String getAccountTypeName() {
         return accountTypeName;
     }
@@ -63,6 +67,7 @@ public class AccountType implements Serializable {
         this.accountTypeName = accountTypeName;
     }
 
+    @Column(name = "CREATION_DATE")
     public LocalDate getCreationDate() {
         return creationDate;
     }
@@ -71,6 +76,15 @@ public class AccountType implements Serializable {
         this.creationDate = creationDate;
     }
 
+
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType")
+    public Set<AccountTransaction> getAccountTransactions() {
+        return accountTransactions;
+    }
+
+    public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
+        this.accountTransactions = accountTransactions;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -84,6 +98,8 @@ public class AccountType implements Serializable {
     public int hashCode() {
         return Objects.hash(accountTypeId, mnemonic, accountTypeName, creationDate);
     }
+
+
 
     @Override
     public String toString() {

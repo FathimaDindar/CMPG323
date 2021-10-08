@@ -18,11 +18,13 @@ public class MembersDto implements Serializable {
     private String username;
     private String name;
     private String surname;
+    private Integer miles;
 
-    public MembersDto(String username, String name, String surname) {
+    public MembersDto(String username, String name, String surname, Integer miles) {
         this.username = username;
         this.name = name;
         this.surname = surname;
+        this.miles = miles;
     }
 
     public MembersDto() {
@@ -32,6 +34,7 @@ public class MembersDto implements Serializable {
         this.setUsername(members.getUsername());
         this.setName(members.getName());
         this.setSurname(members.getSurname());
+        this.setMiles(members.getMiles());
     }
 
     @ApiModelProperty(position = 1,
@@ -79,6 +82,21 @@ public class MembersDto implements Serializable {
         this.surname = surname;
     }
 
+    @ApiModelProperty(position = 4,
+            value = "Members Miles",
+            name = "Miles",
+            notes = "The miles balance on the specified member",
+            dataType = "java.lang.String",
+            example = "1450",
+            required = true)
+    public Integer getMiles() {
+        return miles;
+    }
+
+    public void setMiles(Integer miles) {
+        this.miles = miles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,7 +112,7 @@ public class MembersDto implements Serializable {
 
     @JsonIgnore
     public Members getMembers(){
-        return new Members(username, getName(), getSurname());
+        return new Members(username, name, surname,miles);
     }
 
     @Override

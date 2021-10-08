@@ -9,7 +9,4 @@ public interface FetchMilesAccountFlow {
 
     MilesAccountDto getMilesAccountByUsername(String username);
 
-    int addMilesByUsername(Integer miles, String username);
-
-    int subtractMilesByUsername(Integer miles, String username);
 }

@@ -4,6 +4,8 @@ package za.ac.nwu.ac.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import za.ac.nwu.ac.domain.persistence.AccountTransaction;
+import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.Members;
 import za.ac.nwu.ac.domain.persistence.MilesAccount;
 
@@ -17,26 +19,46 @@ public class MilesAccountDto implements Serializable {
 
     private static final long serialVersionUID = 4184713481290456881L;
 
+    private Long accountId;
     private String username;
     private Integer miles;
-    private LocalDate milesAddedDate;
 
-    public MilesAccountDto(String username, Integer miles, LocalDate milesAddedDate) {
+    public MilesAccountDto(Long accountId, String username, Integer miles) {
+        this.accountId = accountId;
         this.username = username;
         this.miles = miles;
-        this.milesAddedDate = milesAddedDate;
     }
 
     public MilesAccountDto() {
     }
 
     public MilesAccountDto(MilesAccount milesAccount){
-        this.setUsername(milesAccount.getUsername());
-        this.setMiles(milesAccount.getMiles());
-        this.setMilesAddedDate(milesAccount.getMilesAddedDate());
+        this.accountId = milesAccount.getAccountId();
+        this.username = milesAccount.getMember().getUsername();
+        this.miles = milesAccount.getMiles();
+    }
+
+    @JsonIgnore
+    public MilesAccount buildMilesAccount(Members member){
+        return new MilesAccount(this.getAccountId(),member, this.getMiles());
     }
 
     @ApiModelProperty(position = 1,
+            value = "MilesAccount AccountId",
+            name = "AccountId",
+            notes = "Uniquely identifies miles account",
+            dataType = "java.lang.String",
+            example = "0",
+            required = true)
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
+    @ApiModelProperty(position = 2,
             value = "MilesAccount Username",
             name = "Username",
             notes = "Uniquely identifies members",
@@ -51,7 +73,7 @@ public class MilesAccountDto implements Serializable {
         this.username = username;
     }
 
-    @ApiModelProperty(position = 2,
+    @ApiModelProperty(position = 3,
             value = "MilesAccount Miles",
             name = "Miles",
             notes = "The amount of miles in the account",
@@ -66,46 +88,25 @@ public class MilesAccountDto implements Serializable {
         this.miles = miles;
     }
 
-    @ApiModelProperty(position = 3,
-            value = "MilesAccount MilesAddedDate",
-            name = "MilesAddedDate",
-            notes = "The date at which miles were added to the account",
-            dataType = "java.lang.String",
-            example = "2020-01-03",
-            allowEmptyValue = true,
-            required = false)
-    public LocalDate getMilesAddedDate() {
-        return milesAddedDate;
-    }
-
-    public void setMilesAddedDate(LocalDate milesAddedDate) {
-        this.milesAddedDate = milesAddedDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MilesAccountDto that = (MilesAccountDto) o;
-        return Objects.equals(username, that.username) && Objects.equals(miles, that.miles) && Objects.equals(milesAddedDate, that.milesAddedDate);
+        return Objects.equals(accountId, that.accountId) && Objects.equals(username, that.username) && Objects.equals(miles, that.miles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, miles, milesAddedDate);
-    }
-
-    @JsonIgnore
-    public MilesAccount getMilesAccount(){
-        return new MilesAccount(getUsername(), getMiles(), getMilesAddedDate());
+        return Objects.hash(accountId, username, miles);
     }
 
     @Override
     public String toString() {
         return "MilesAccountDto{" +
-                "username='" + username + '\'' +
+                "accountId=" + accountId +
+                ", username='" + username + '\'' +
                 ", miles=" + miles +
-                ", milesAddedDate=" + milesAddedDate +
                 '}';
     }
 }

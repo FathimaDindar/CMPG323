@@ -3,7 +3,9 @@ package za.ac.nwu.ac.translator.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.MembersDto;
+import za.ac.nwu.ac.domain.dto.MilesAccountDto;
 import za.ac.nwu.ac.domain.persistence.Members;
+import za.ac.nwu.ac.domain.persistence.MilesAccount;
 import za.ac.nwu.ac.repo.persistence.MembersRepository;
 import za.ac.nwu.ac.translator.MembersTranslator;
 
@@ -42,6 +44,15 @@ public class MembersTranslatorImpl implements MembersTranslator {
             return new MembersDto(members);
         }catch (Exception e){
             throw new RuntimeException("Unable to save to the DB", e);
+        }
+    }
+
+    @Override
+    public Members getMembersByUsername(String username) {
+        try{
+            return membersRepository.getMembersByUsername(username);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read data from the DB", e);
         }
     }
 }

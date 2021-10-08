@@ -9,6 +9,7 @@ import za.ac.nwu.ac.domain.persistence.MilesAccount;
 import za.ac.nwu.ac.repo.persistence.MilesAccountRepository;
 import za.ac.nwu.ac.translator.MilesAccountTranslator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,40 +39,77 @@ public class MilesAccountTranslatorImpl implements MilesAccountTranslator {
     }
 
     @Override
-    public MilesAccountDto create(MilesAccountDto milesAccountDto){
-        try{
-            MilesAccount milesAccount = milesAccountRepository.save(milesAccountDto.getMilesAccount());
-            return new MilesAccountDto(milesAccount);
-        }catch (Exception e){
-            throw new RuntimeException("Unable to save to the DB", e);
+    public MilesAccount save(MilesAccount milesAccount) {
+        {
+            try{
+                return milesAccountRepository.save(milesAccount);
+            }catch (Exception e){
+                throw new RuntimeException("Unable to save to the DB", e);
+            }
         }
     }
+
+    @Override
+    public MilesAccountDto create(MilesAccountDto milesAccountDto){
+//        try{
+//            MilesAccount milesAccount = milesAccountRepository.save(milesAccount.getMiles());
+//            return new MilesAccountDto(milesAccount);
+//        }catch (Exception e){
+//            throw new RuntimeException("Unable to save to the DB", e);
+//        }
+        return null;
+    }
+
 
     @Override
     public MilesAccountDto getMilesAccountByUsername(String username) {
         try{
-            MilesAccount milesAccount = milesAccountRepository.getMilesAccountByUsername(username);
-            return new MilesAccountDto(milesAccount);
+                return milesAccountRepository.getMilesAccountByUsername(username);
         }catch(Exception e){
             throw new RuntimeException("Unable to read data from the DB", e);
         }
     }
+//
+//    @Override
+//    public int addMilesByUsername(String username, Integer miles) {
+//        try {
+//            return milesAccountRepository.addMilesByUsername(username, miles);
+//        }catch (Exception e){
+//            throw new RuntimeException("Unable to read from the DB", e);
+//        }
+//    }
 
-    @Override
-    public int addMilesByUsername(Integer miles, String username ) {
-       try {
-           return milesAccountRepository.addMilesByUsername(miles, username);
-       }catch (Exception e){
-           throw new RuntimeException("Unable to read from the DB", e);
-       }
-    }
 
-    @Override
-    public int subtractMilesByUsername(Integer miles, String username) {
-        try {
-            return milesAccountRepository.subtractMilesByUsername(miles, username);
-        }catch (Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
-        }
-    }
+//    @Override
+//    public int subtractMilesByUsername(String username, Integer miles) {
+//        try {
+//            return milesAccountRepository.subtractMilesByUsername(username, miles);
+//        }catch (Exception e){
+//            throw new RuntimeException("Unable to read from the DB", e);
+//        }
+//    }
+//
+//    @Override
+//    public MilesAccountDto addMilesByUsernames(String username, Integer miles) {
+//        try {
+//            milesAccountRepository.addMilesByUsername(username, miles);
+//            MilesAccount milesAccount = milesAccountRepository.getMilesAccountByUsername(username);
+//            return new MilesAccountDto(milesAccount);
+//        }catch (Exception e){
+//            throw new RuntimeException("Unable to read from the DB", e);
+//        }
+//    }
+//
+//    @Override
+//    public MilesAccountDto subtractMilesByUsernames(String username, Integer miles) {
+//        try {
+//            milesAccountRepository.subtractMilesByUsername(username, miles);
+//            MilesAccount milesAccount = milesAccountRepository.getMilesAccountByUsername(username);
+//            return new MilesAccountDto(milesAccount);
+//        }catch (Exception e){
+//            throw new RuntimeException("Unable to read from the DB", e);
+//        }
+//    }
+
+
 }
