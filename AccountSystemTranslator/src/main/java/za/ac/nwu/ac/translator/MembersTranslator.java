@@ -10,5 +10,9 @@ public interface MembersTranslator {
 
     MembersDto create(MembersDto members);
 
-    Members getMembersByUsername(String username);
+    MembersDto getMembersByUsername(String username);
+
+    Members save(Members members);
+
+    Members getMembersDbByUsername(String username);
 }

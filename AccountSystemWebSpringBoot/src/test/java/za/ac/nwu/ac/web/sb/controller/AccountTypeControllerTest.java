@@ -104,6 +104,28 @@ public class AccountTypeControllerTest {
                 mvcResult.getResponse().getContentAsString());
     }
 
+    @Test
+    public void getAccountTypeByMnemonic() throws Exception {
+        String expectedResponse = "{\"successful\":true,\"payload\":" +
+                "{\"mnemonic\":\"PLAY\",\"accountTypeName\":\"The new Play account type name\",\"creationDate\":[2021,4,1]}}";
+        AccountTypeDto accountType = new AccountTypeDto("PLAY", "The new Play account type name",
+                LocalDate.parse("2021-04-01"));
+
+        when(fetchAccountTypeFlow.getAccountTypeByMnemonic(accountType.getMnemonic())).thenReturn(accountType);
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s",
+                ACCOUNT_TYPE_CONTROLLER_URL, "PLAY")))
+                .param("newAccountTypeName", "The new Play account type name")
+                                .param("newCreationDate", "2021-04-01")
+                                .servletPath(APP_URL)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(fetchAccountTypeFlow, times(1)).getAccountTypeByMnemonic(eq(accountType.getMnemonic()));
+        assertEquals(expectedResponse,
+                mvcResult.getResponse().getContentAsString());
+    }
+
 //    @Test
 //    public void deleteAccountType() throws Exception {
 //        String expectedResponse = "{\"successful\":true,\"payload\":" +

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreateAccountTransactionFlowImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountSystemLogic</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.ac.logic.flow.impl</a> &gt; <span class="el_source">CreateAccountTransactionFlowImpl.java</span></div><h1>CreateAccountTransactionFlowImpl.java</h1><pre class="source lang-java linenums">package za.ac.nwu.ac.logic.flow.impl;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import za.ac.nwu.ac.domain.dto.AccountTransactionDto;
+import za.ac.nwu.ac.domain.persistence.*;
+import za.ac.nwu.ac.logic.flow.CreateAccountTransactionFlow;
+import za.ac.nwu.ac.logic.flow.FetchAccountTypeFlow;
+import za.ac.nwu.ac.logic.flow.FetchMembersFlow;
+import za.ac.nwu.ac.translator.AccountTransactionTranslator;
+
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.Objects;
+
+@Transactional
+@Component(&quot;createAccountTransactionFlowName&quot;)
+public class CreateAccountTransactionFlowImpl implements CreateAccountTransactionFlow {
+
+<span class="fc" id="L23">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateAccountTransactionFlowImpl.class);</span>
+
+    private final AccountTransactionTranslator accountTransactionTranslator;
+    private final FetchAccountTypeFlow fetchAccountTypeFlow;
+    private final FetchMembersFlow fetchMembersFlow;
+
+    public CreateAccountTransactionFlowImpl(AccountTransactionTranslator accountTransactionTranslator,
+                                            FetchAccountTypeFlow fetchAccountTypeFlow,
+<span class="fc" id="L31">                                            FetchMembersFlow fetchMembersFlow) {</span>
+<span class="fc" id="L32">        this.accountTransactionTranslator = accountTransactionTranslator;</span>
+<span class="fc" id="L33">        this.fetchAccountTypeFlow = fetchAccountTypeFlow;</span>
+<span class="fc" id="L34">        this.fetchMembersFlow = fetchMembersFlow;</span>
+
+<span class="fc" id="L36">    }</span>
+
+    @Override
+    public AccountTransactionDto create(AccountTransactionDto accountTransactionDto){
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (LOGGER.isInfoEnabled()){</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if(null != accountTransactionDto){</span>
+<span class="nc" id="L42">                LOGGER.info(&quot;The input object was {} &quot;, accountTransactionDto);</span>
+            }
+        }
+
+
+<span class="nc" id="L47">        accountTransactionDto.setTransactionDate(LocalDate.now());</span>
+
+<span class="nc" id="L49">        AccountType accountType = fetchAccountTypeFlow.getAccountTypeDbByMnemonic((</span>
+<span class="nc" id="L50">                accountTransactionDto.getAccountTypeMnemonic()));</span>
+<span class="nc" id="L51">        LOGGER.info(&quot;Got AccountType for {} &quot;, accountTransactionDto.getAccountTypeMnemonic());</span>
+<span class="nc" id="L52">        Members member = fetchMembersFlow.getMembersByUsername((accountTransactionDto.getUsername()));</span>
+<span class="nc" id="L53">        LOGGER.info(&quot;Got Member for {}&quot;, accountTransactionDto.getUsername());</span>
+
+<span class="nc" id="L55">        AccountTransaction accountTransaction = accountTransactionDto.buildAccountTransaction(accountType,member);</span>
+
+<span class="nc" id="L57">        AccountTransaction createdAccountTransaction = accountTransactionTranslator.save(accountTransaction);</span>
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (Objects.equals(accountTransaction.getDetails(), &quot;add&quot;))</span>
+        {
+<span class="nc" id="L61">            accountTransaction.setDetails(&quot;An amount of &quot; + String.valueOf(accountTransaction.getAmount()) + &quot; has been added to the account.&quot; );</span>
+<span class="nc" id="L62">            member.setMiles(member.getMiles() + accountTransaction.getAmount());</span>
+        }
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        else if (Objects.equals(accountTransaction.getDetails(), &quot;subtract&quot;))</span>
+        {
+<span class="nc" id="L66">            accountTransaction.setDetails(&quot;An amount of &quot; + String.valueOf(accountTransaction.getAmount()) + &quot; has been subtracted from the account.&quot; );</span>
+<span class="nc" id="L67">            member.setMiles(member.getMiles() - accountTransaction.getAmount());</span>
+        }
+
+<span class="nc" id="L70">        AccountTransactionDto results = new AccountTransactionDto(createdAccountTransaction);</span>
+<span class="nc" id="L71">        LOGGER.info(&quot;The return object id {}&quot;, results);</span>
+<span class="nc" id="L72">        return results;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

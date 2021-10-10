@@ -42,8 +42,4 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
 //        return accountTypeTranslator.updateAccountType(mnemonic,accountTypeName,creationDate);
 //    }
 
-    public boolean methodToTest(){
-        return true;
-    }
-
 }

@@ -59,21 +59,21 @@ public class MembersController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/byUsername")
-//    @ApiOperation(value = "Gets all the configured Members.", notes = "Returns a list of Members.")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message ="Members returned", response = GeneralResponse.class),
-//            @ApiResponse (code = 400, message = "Bad Request", response = GeneralResponse.class),
-//            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-//            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-//    public ResponseEntity<GeneralResponse<Members>> getByUsername(
-//            @ApiParam(value = "The username that uniquely identifies the Account.",
-//                    example = "FDindar",
-//                    name = "username",
-//                    required = true)
-//            @RequestParam("username") final String username) {
-//        Members members = fetchMembersFlow.getMembersByUsername(username);
-//        GeneralResponse<Members> response = new GeneralResponse<>(true, members);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @GetMapping("/byUsername")
+    @ApiOperation(value = "Gets specified Member Account.", notes = "Returns a list of Members.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message ="Members returned", response = GeneralResponse.class),
+            @ApiResponse (code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<MembersDto>> getByUsername(
+            @ApiParam(value = "The username that uniquely identifies the Account.",
+                    example = "FDindar",
+                    name = "username",
+                    required = true)
+            @RequestParam("username") final String username) {
+        MembersDto members = fetchMembersFlow.getMembersByUsername(username);
+        GeneralResponse<MembersDto> response = new GeneralResponse<>(true, members);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

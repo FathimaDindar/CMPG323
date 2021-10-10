@@ -3,9 +3,9 @@ package za.ac.nwu.ac.translator.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.MembersDto;
-import za.ac.nwu.ac.domain.dto.MilesAccountDto;
+import za.ac.nwu.ac.domain.persistence.AccountTransaction;
+import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.Members;
-import za.ac.nwu.ac.domain.persistence.MilesAccount;
 import za.ac.nwu.ac.repo.persistence.MembersRepository;
 import za.ac.nwu.ac.translator.MembersTranslator;
 
@@ -20,6 +20,25 @@ public class MembersTranslatorImpl implements MembersTranslator {
     @Autowired
     public MembersTranslatorImpl(MembersRepository membersRepository) {
         this.membersRepository = membersRepository;
+    }
+
+    @Override
+    public Members save(Members members)
+    {
+        try{
+            return membersRepository.save(members);
+        }catch (Exception e){
+            throw new RuntimeException("Unable to save to the DB", e);
+        }
+    }
+
+    @Override
+    public Members getMembersDbByUsername(String username) {
+        try{
+            return membersRepository.getMembersDbByUsername(username);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read data from the DB", e);
+        }
     }
 
     @Override
@@ -40,19 +59,19 @@ public class MembersTranslatorImpl implements MembersTranslator {
     @Override
     public MembersDto create(MembersDto membersDto){
         try{
-            Members members = membersRepository.save(membersDto.getMembers());
-            return new MembersDto(members);
+                return null;
         }catch (Exception e){
             throw new RuntimeException("Unable to save to the DB", e);
         }
     }
 
     @Override
-    public Members getMembersByUsername(String username) {
+    public MembersDto getMembersByUsername(String username) {
         try{
             return membersRepository.getMembersByUsername(username);
         }catch(Exception e){
             throw new RuntimeException("Unable to read data from the DB", e);
         }
     }
+
 }

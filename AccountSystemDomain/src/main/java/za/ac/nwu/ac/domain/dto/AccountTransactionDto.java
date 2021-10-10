@@ -22,10 +22,10 @@ public class AccountTransactionDto implements Serializable {
     private String username;
     private Integer amount;
     private LocalDate transactionDate;
-    private AccountTransactionDetailsDto details;
+    private String details;
 
 
-    public AccountTransactionDto(Long transactionId, String accountTypeMnemonic, String username, Integer amount, LocalDate transactionDate, AccountTransactionDetailsDto details) {
+    public AccountTransactionDto(Long transactionId, String accountTypeMnemonic, String username, Integer amount, LocalDate transactionDate, String details) {
         this.transactionId = transactionId;
         this.accountTypeMnemonic = accountTypeMnemonic;
         this.username = username;
@@ -38,19 +38,16 @@ public class AccountTransactionDto implements Serializable {
     }
 
     public AccountTransactionDto(AccountTransaction accountTransaction){
-        this.transactionId = accountTransaction.getAccountTransactionId();
         this.accountTypeMnemonic = accountTransaction.getAccountType().getMnemonic();
         this.username = accountTransaction.getMember().getUsername();
         this.amount = accountTransaction.getAmount();
-        this.transactionDate = accountTransaction.getTransactionDate();
-        if(null != accountTransaction.getDetails()){
-            this.details = new AccountTransactionDetailsDto(accountTransaction.getDetails());
-        }
+        this.transactionDate = LocalDate.now();
+        this.details = accountTransaction.getDetails();
     }
 
     @JsonIgnore
     public AccountTransaction buildAccountTransaction(AccountType accountType, Members member){
-        return new AccountTransaction(this.getTransactionId(), accountType, member, this.getAmount(), this.transactionDate);
+        return new AccountTransaction(accountType, member, this.getAmount(), this.transactionDate, details);
     }
 
     public Long getTransactionId() {
@@ -63,10 +60,6 @@ public class AccountTransactionDto implements Serializable {
 
     public String getAccountTypeMnemonic() {
         return accountTypeMnemonic;
-    }
-
-    public void setAccountTypeMnemonic(String accountTypeMnemonic) {
-        this.accountTypeMnemonic = accountTypeMnemonic;
     }
 
     public String getUsername() {
@@ -93,11 +86,11 @@ public class AccountTransactionDto implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    public AccountTransactionDetailsDto getDetails() {
+    public String getDetails() {
         return details;
     }
 
-    public void setDetails(AccountTransactionDetailsDto details) {
+    public void setDetails(String details) {
         this.details = details;
     }
 
@@ -122,7 +115,7 @@ public class AccountTransactionDto implements Serializable {
                 ", username='" + username + '\'' +
                 ", amount=" + amount +
                 ", transactionDate=" + transactionDate +
-                ", details=" + details +
+                ", details='" + details + '\'' +
                 '}';
     }
 }

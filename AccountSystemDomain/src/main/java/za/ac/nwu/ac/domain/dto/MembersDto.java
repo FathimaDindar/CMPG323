@@ -4,6 +4,8 @@ package za.ac.nwu.ac.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import za.ac.nwu.ac.domain.persistence.AccountTransaction;
+import za.ac.nwu.ac.domain.persistence.AccountType;
 import za.ac.nwu.ac.domain.persistence.Members;
 
 import java.io.Serializable;
@@ -15,31 +17,54 @@ public class MembersDto implements Serializable {
 
     private static final long serialVersionUID = -3675411777951570019L;
 
+    private String mnemonic;
     private String username;
     private String name;
     private String surname;
-    private Integer miles;
+    private Integer balance;
 
-    public MembersDto(String username, String name, String surname, Integer miles) {
+    public MembersDto(String mnemonic, String username, String name, String surname, Integer balance) {
+        this.mnemonic = mnemonic;
         this.username = username;
         this.name = name;
         this.surname = surname;
-        this.miles = miles;
+        this.balance = balance;
     }
 
     public MembersDto() {
     }
 
     public MembersDto(Members members){
-        this.setUsername(members.getUsername());
-        this.setName(members.getName());
-        this.setSurname(members.getSurname());
-        this.setMiles(members.getMiles());
+        this.mnemonic = members.getAccountType().getMnemonic();
+        this.username = members.getUsername();
+        this.name = members.getName();
+        this.surname = members.getSurname();
+        this.balance = members.getBalance();
+    }
+
+    @JsonIgnore
+    public Members buildMember(AccountType accountType){
+        return new Members(accountType, this.getUsername(),this.getName(), this.getSurname(), this.getBalance());
     }
 
     @ApiModelProperty(position = 1,
-            value = "Members Initials and Surname",
-            name = "Initials and Surname",
+            value = "AccountType Mnemonic",
+            name = "Mnemonic",
+            notes = "The intials and surname of the member",
+            dataType = "java.lang.String",
+            example = "MILES",
+            required = true)
+    public String getMnemonic() {
+        return mnemonic;
+    }
+
+    public void setMnemonic(String mnemonic) {
+        this.mnemonic = mnemonic;
+    }
+
+    @ApiModelProperty(position = 2,
+            value = "Members Username",
+            name = "Username",
             notes = "The intials and surname of the member",
             dataType = "java.lang.String",
             example = "FDindar",
@@ -52,7 +77,7 @@ public class MembersDto implements Serializable {
         this.username = username;
     }
 
-    @ApiModelProperty(position = 2,
+    @ApiModelProperty(position = 3,
             value = "Members Name",
             name = "Name",
             notes = "The name of the member",
@@ -67,7 +92,7 @@ public class MembersDto implements Serializable {
         this.name = name;
     }
 
-    @ApiModelProperty(position = 3,
+    @ApiModelProperty(position = 4,
             value = "Members Surname",
             name = "Surname",
             notes = "The surname of the member",
@@ -82,19 +107,19 @@ public class MembersDto implements Serializable {
         this.surname = surname;
     }
 
-    @ApiModelProperty(position = 4,
-            value = "Members Miles",
-            name = "Miles",
-            notes = "The miles balance on the specified member",
+    @ApiModelProperty(position = 5,
+            value = "Members Balance",
+            name = "Balance",
+            notes = "The balance balance on the specified member",
             dataType = "java.lang.String",
             example = "1450",
             required = true)
-    public Integer getMiles() {
-        return miles;
+    public Integer getBalance() {
+        return balance;
     }
 
-    public void setMiles(Integer miles) {
-        this.miles = miles;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     @Override
@@ -110,10 +135,6 @@ public class MembersDto implements Serializable {
         return Objects.hash(username, name, surname);
     }
 
-    @JsonIgnore
-    public Members getMembers(){
-        return new Members(username, name, surname,miles);
-    }
 
     @Override
     public String toString() {

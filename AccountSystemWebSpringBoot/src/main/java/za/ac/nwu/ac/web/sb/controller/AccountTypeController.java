@@ -64,7 +64,7 @@ public class AccountTypeController {
             @ApiResponse(code = 201, message = "Goal Found", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<AccountTypeDto>> getAccountType(
+    public ResponseEntity<GeneralResponse<AccountTypeDto>> getAccountTypeByMnemonic(
             @ApiParam(value = "The mnemonic that uniquely identifies the Account.",
                     example = "MILES",
                     name = "mnemonic",

@@ -17,16 +17,6 @@ import java.time.LocalDate;
 public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
 
 
-    @Query(value = "SELECT "+
-            "       ACCOUNT_TYPE_ID," +
-            "       ACCOUNT_TYPE_NAME," +
-            "       CREATION_DATE," +
-            "       MNEMONIC" +
-            "   FROM" +
-            "       FATHIMA.ACCOUNT_TYPE "+
-            "   WHERE MNEMONIC = :mnemonic ", nativeQuery = true)
-    AccountType getAccountTypeByMnemonicNativeQuery(String mnemonic);
-
     @Query(value = "SELECT " +
             "       at" +
             "   FROM " +
@@ -41,21 +31,31 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
             "   WHERE at.mnemonic = :mnemonic ")
     AccountType getAccountTypeDbByMnemonic(String mnemonic);
 
-    @Query(value = "SELECT new za.ac.nwu.ac.domain.dto.AccountTypeDto( " +
-            "       at.mnemonic," +
-            "       at.accountTypeName, " +
-            "       at.creationDate )" +
-            "   FROM " +
-            "       AccountType at" +
-            "   WHERE at.mnemonic = :mnemonic ")
-    AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic);
-
-    @Modifying
-    @Query(value = "UPDATE" +
-            "         AccountType at" +
-            "   SET at.accountTypeName = :accountTypeName, at.creationDate = :creationDate" +
-            "   WHERE at.mnemonic = :mnemonic")
-    int updateAccountType(String mnemonic, String accountTypeName, LocalDate creationDate);
+//    @Query(value = "SELECT new za.ac.nwu.ac.domain.dto.AccountTypeDto( " +
+//            "       at.mnemonic," +
+//            "       at.accountTypeName, " +
+//            "       at.creationDate )" +
+//            "   FROM " +
+//            "       AccountType at" +
+//            "   WHERE at.mnemonic = :mnemonic ")
+//    AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic);
+//
+//    @Query(value = "SELECT "+
+////            "       ACCOUNT_TYPE_ID," +
+////            "       ACCOUNT_TYPE_NAME," +
+////            "       CREATION_DATE," +
+////            "       MNEMONIC" +
+////            "   FROM" +
+////            "       FATHIMA.ACCOUNT_TYPE "+
+////            "   WHERE MNEMONIC = :mnemonic ", nativeQuery = true)
+////    AccountType getAccountTypeByMnemonicNativeQuery(String mnemonic);
+//
+//    @Modifying
+//    @Query(value = "UPDATE" +
+//            "         AccountType at" +
+//            "   SET at.accountTypeName = :accountTypeName, at.creationDate = :creationDate" +
+//            "   WHERE at.mnemonic = :mnemonic")
+//    int updateAccountType(String mnemonic, String accountTypeName, LocalDate creationDate);
 
 
 

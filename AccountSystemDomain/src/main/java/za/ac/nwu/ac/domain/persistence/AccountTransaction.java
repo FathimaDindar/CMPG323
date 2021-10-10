@@ -1,6 +1,5 @@
 package za.ac.nwu.ac.domain.persistence;
 
-import za.ac.nwu.ac.domain.dto.AccountTransactionDetailsDto;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 
 import javax.persistence.*;
@@ -20,15 +19,15 @@ public class AccountTransaction implements Serializable {
     private Members member;
     private Integer amount;
     private LocalDate transactionDate;
+    private String details;
 
-    AccountTransactionDetails details;
-
-    public AccountTransaction(Long accountTransactionId, AccountType accountType, Members member, Integer amount, LocalDate transactionDate) {
+    public AccountTransaction(Long accountTransactionId, AccountType accountType, Members member, Integer amount, LocalDate transactionDate, String details) {
         this.accountTransactionId = accountTransactionId;
         this.accountType = accountType;
         this.member = member;
         this.amount = amount;
         this.transactionDate = transactionDate;
+        this.details = details;
     }
 
     public AccountTransaction() {
@@ -37,6 +36,14 @@ public class AccountTransaction implements Serializable {
     public AccountTransaction(Integer amount, LocalDate transactionDate) {
         this.amount = amount;
         this.transactionDate = transactionDate;
+    }
+
+    public AccountTransaction(AccountType accountType, Members member, Integer amount, LocalDate transactionDate, String details) {
+        this.accountType = accountType;
+        this.member = member;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+        this.details = details;
     }
 
 
@@ -72,7 +79,6 @@ public class AccountTransaction implements Serializable {
         this.member = member;
     }
 
-
     @Column(name = "AMOUNT")
     public Integer getAmount() {
         return amount;
@@ -91,28 +97,26 @@ public class AccountTransaction implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    @OneToOne(targetEntity = AccountTransactionDetails.class, fetch = FetchType.LAZY, mappedBy = "accountTransactionId")
-    public AccountTransactionDetails getDetails() {
+    @Column(name = "Details")
+    public String getDetails() {
         return details;
     }
 
-    public void setDetails(AccountTransactionDetails details)
-    {
+    public void setDetails(String details) {
         this.details = details;
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransaction that = (AccountTransaction) o;
-        return Objects.equals(accountTransactionId, that.accountTransactionId) && Objects.equals(accountType, that.accountType) && Objects.equals(member, that.member) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
+        return Objects.equals(accountTransactionId, that.accountTransactionId) && Objects.equals(accountType, that.accountType) && Objects.equals(member, that.member) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate) && Objects.equals(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountTransactionId, accountType, member, amount, transactionDate);
+        return Objects.hash(accountTransactionId, accountType, member, amount, transactionDate, details);
     }
 
     @Override
@@ -123,8 +127,7 @@ public class AccountTransaction implements Serializable {
                 ", member=" + member +
                 ", amount=" + amount +
                 ", transactionDate=" + transactionDate +
+                ", details='" + details + '\'' +
                 '}';
     }
-
-
 }

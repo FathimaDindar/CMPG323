@@ -11,11 +11,9 @@ public interface AccountTransactionTranslator {
 
     AccountTransaction save(AccountTransaction accountTransaction);
 
-    List<AccountTransaction> getAllAccountTransactions();
+    List<AccountTransactionDto> getAllAccountTransactions();
 
     AccountTransaction getAccountTransactionByPk(Long transactionId);
 
-    AccountTransactionDto createAdd(AccountTransactionDto accountTransaction);
-
-    AccountTransactionDto createSubtract(AccountTransactionDto accountTransaction);
+    AccountTransactionDto create(AccountTransactionDto accountTransaction);
    }

@@ -38,7 +38,7 @@ public class CreateAccountTypeFlowImplTest {
     }
 
     @Test
-    public void create() {
+    public void create() throws Exception{
 
 //        when(translator.create(any(AccountTypeDto.class))).thenReturn(null);
 //        when(translator.create(eq(new AccountTypeDto()))).thenReturn(new AccountTypeDto());

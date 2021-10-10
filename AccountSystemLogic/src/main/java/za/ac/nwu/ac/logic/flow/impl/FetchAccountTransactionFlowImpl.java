@@ -24,22 +24,9 @@ public class FetchAccountTransactionFlowImpl implements FetchAccountTransactionF
 
     @Override
     public List<AccountTransactionDto> getAllAccountTransactions() {
-        List<AccountTransactionDto> accountTransactionDtos = new ArrayList<>();
-        for(AccountTransaction accountTransaction : accountTransactionTranslator.getAllAccountTransactions()){
-            accountTransactionDtos.add(new AccountTransactionDto(accountTransaction));
-        }
-        return accountTransactionDtos;
-    }
-
-    @Override
-    public AccountTransactionDto getAccountTransactionById(Long transactionId){
-        AccountTransaction accountTransaction = accountTransactionTranslator.getAccountTransactionByPk(transactionId);
-        return null != accountTransaction ? new AccountTransactionDto((accountTransaction)) : null;
+        return (new ArrayList<>(accountTransactionTranslator.getAllAccountTransactions()));
     }
 
 
-    public boolean methodToTest(){
-        return true;
-    }
 
 }

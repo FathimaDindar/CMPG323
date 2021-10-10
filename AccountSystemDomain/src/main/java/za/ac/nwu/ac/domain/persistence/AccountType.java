@@ -1,5 +1,7 @@
 package za.ac.nwu.ac.domain.persistence;
 
+import com.sun.org.glassfish.external.amx.AMX;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ public class AccountType implements Serializable {
     private LocalDate creationDate;
 
     private Set<AccountTransaction> accountTransactions;
+    private Set<Members> members;
 
     public AccountType(Long accountTypeId, String mnemonic, String accountTypeName, LocalDate creationDate) {
         this.accountTypeId = accountTypeId;
@@ -84,6 +87,15 @@ public class AccountType implements Serializable {
 
     public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
         this.accountTransactions = accountTransactions;
+    }
+
+    @OneToMany(targetEntity = Members.class, fetch = FetchType.LAZY, mappedBy = "accountType")
+    public Set<Members> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<Members> members) {
+        this.members = members;
     }
 
     @Override

@@ -34,27 +34,22 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
     }
 
     @Override
-    public List<AccountTransaction> getAllAccountTransactions() {
-        List<AccountTransaction> accountTransactions = new ArrayList<>();
+    public List<AccountTransactionDto> getAllAccountTransactions() {
+        List<AccountTransactionDto> accountTransactionDtos = new ArrayList<>();
         try {
-                accountTransactions = new ArrayList<>(repo.findAll());
+                accountTransactionDtos = repo.getAllAccountTransactions();
             } catch (Exception e) {
             throw new RuntimeException("Unable to read from the DB", e);
         }
 
-        return accountTransactions;
+        return (accountTransactionDtos);
     }
 
     @Override
-    public AccountTransactionDto createAdd(AccountTransactionDto accountTransaction) {
+    public AccountTransactionDto create(AccountTransactionDto accountTransaction) {
         return null;
     }
 
-
-    @Override
-    public AccountTransactionDto createSubtract(AccountTransactionDto accountTransaction) {
-        return null;
-    }
 
 
     @Override

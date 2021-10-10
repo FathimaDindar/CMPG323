@@ -64,11 +64,11 @@ public class MembersControllerTest {
     @Test
     public void getAll() throws Exception {
         String expectedResponse = "{\"successful\":true,\"payload\":[" +
-                "{\"username\":\"FDindar\",\"name\":\"Fathima\",\"surname\":\"Dindar\", \"miles\":200}," +
-                "{\"username\":\"TDindar\",\"name\":\"Talha\",\"surname\":\"Dindar\", \"miles\":200}]}";
+                "{\"mnemonic\":\"MILES\",\"username\":\"FDindar\",\"name\":\"Fathima\",\"surname\":\"Dindar\",\"balance\":200}," +
+                "{\"mnemonic\":\"MILES\",\"username\":\"TDindar\",\"name\":\"Talha\",\"surname\":\"Dindar\",\"balance\":200}]}";
         List<MembersDto> members = new ArrayList<>();
-        members.add(new MembersDto("FDindar", "Fathima", "Dindar",200));
-        members.add(new MembersDto("TDindar", "Talha", "Dindar",200));
+        members.add(new MembersDto("MILES", "FDindar", "Fathima", "Dindar",200));
+        members.add(new MembersDto("MILES", "TDindar", "Talha", "Dindar",200));
         when(fetchMembersFlow.getAllMembers()).thenReturn(members);
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s",
                         MEMBERS_CONTROLLER_URL, "all")))
@@ -85,11 +85,11 @@ public class MembersControllerTest {
     @Test
     public void create() throws Exception{
         String accountTypeToBeCreated =
-                "{\"username\":\"FDindar\",\"name\":\"Fathima\",\"surname\":\"Dindar\", \"miles\":200}";
+                "{\"mnemonic\":\"MILES\",\"username\":\"FDindar\",\"name\":\"Fathima\",\"surname\":\"Dindar\",\"balance\":200}";
         String expectedResponse = "{\"successful\":true,\"payload\":" +
-                "{\"username\":\"FDindar\",\"name\":\"Fathima\",\"surname\":\"Dindar\", \"miles\":200}}";
+                "{\"mnemonic\":\"MILES\",\"username\":\"FDindar\",\"name\":\"Fathima\",\"surname\":\"Dindar\",\"balance\":200}}";
 
-        MembersDto members = new MembersDto("FDindar", "Fathima", "Dindar", 200);
+        MembersDto members = new MembersDto("MILES", "FDindar", "Fathima", "Dindar", 200);
 
         when(createMembersFlow.create(eq(members))).then(returnsFirstArg());
         MvcResult mvcResult =

@@ -46,15 +46,15 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
         }
     }
 
-    @Override
-    public AccountTypeDto getAccountTypeByMnemonicNativeQuery(String mnemonic){
-        try{
-            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonicNativeQuery(mnemonic);
-            return new AccountTypeDto(accountType);
-        }catch(Exception e){
-            throw new RuntimeException("Unable to read data from the DB", e);
-        }
-    }
+//    @Override
+//    public AccountTypeDto getAccountTypeByMnemonicNativeQuery(String mnemonic){
+//        try{
+//            AccountType accountType = accountTypeRepository.getAccountTypeByMnemonicNativeQuery(mnemonic);
+//            return new AccountTypeDto(accountType);
+//        }catch(Exception e){
+//            throw new RuntimeException("Unable to read data from the DB", e);
+//        }
+//    }
 
     @Override
     public AccountTypeDto getAccountTypeByMnemonic(String mnemonic){
@@ -74,14 +74,14 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
         }
     }
 
-    @Override
-    public AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic){
-        try{
-            return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
-        }catch(Exception e){
-            throw new RuntimeException("Unable to read data from the DB", e);
-        }
-    }
+//    @Override
+//    public AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic){
+//        try{
+//            return accountTypeRepository.getAccountTypeDtoByMnemonic(mnemonic);
+//        }catch(Exception e){
+//            throw new RuntimeException("Unable to read data from the DB", e);
+//        }
+//    }
 
 //    @Override
 //    public AccountTypeDto updateAccountType(String mnemonic, String accountTypeName, LocalDate creationDate) {

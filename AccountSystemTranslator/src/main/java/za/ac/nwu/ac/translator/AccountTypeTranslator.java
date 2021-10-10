@@ -13,11 +13,7 @@ public interface AccountTypeTranslator {
 
     AccountType getAccountTypeDbByMnemonic(String mnemonic);
 
-    AccountTypeDto getAccountTypeByMnemonicNativeQuery(String mnemonic);
-
     AccountTypeDto getAccountTypeByMnemonic (String mnemonic);
-
-    AccountTypeDto getAccountTypeDtoByMnemonic(String mnemonic);
 
 //    AccountTypeDto updateAccountType(String mnemonic, String accountTypeName, LocalDate creationDate);
 }
