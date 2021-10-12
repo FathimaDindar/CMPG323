@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "ACCOUNT_TYPE", schema = "FATHIMA")
+@Table(name = "ACCOUNT_TYPE", schema = "HR")
 public class AccountType implements Serializable {
 
     private static final long serialVersionUID = 1636276203670716488L;
@@ -41,7 +41,7 @@ public class AccountType implements Serializable {
 
 
     @Id
-    @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "FATHIMA.FATHI_GENERIC_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "FATHI_GENERIC_SEQ", sequenceName = "HR.FATHI_GENERIC_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FATHI_GENERIC_SEQ")
     @Column(name = "Account_Type_ID")
     public Long getAccountTypeId() {

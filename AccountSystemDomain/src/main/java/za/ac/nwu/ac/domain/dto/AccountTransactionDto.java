@@ -50,6 +50,10 @@ public class AccountTransactionDto implements Serializable {
         return new AccountTransaction(accountType, member, this.getAmount(), this.transactionDate, details);
     }
 
+    @ApiModelProperty(position = 1,
+            dataType = "java.lang.String",
+            example = "1",
+            required = true)
     public Long getTransactionId() {
         return transactionId;
     }
@@ -58,10 +62,18 @@ public class AccountTransactionDto implements Serializable {
         this.transactionId = transactionId;
     }
 
+    @ApiModelProperty(position = 2,
+            dataType = "java.lang.String",
+            example = "MILES",
+            required = true)
     public String getAccountTypeMnemonic() {
         return accountTypeMnemonic;
     }
 
+    @ApiModelProperty(position = 3,
+            dataType = "java.lang.String",
+            example = "FDindar",
+            required = true)
     public String getUsername() {
         return username;
     }
@@ -70,6 +82,10 @@ public class AccountTransactionDto implements Serializable {
         this.username = username;
     }
 
+    @ApiModelProperty(position = 4,
+            dataType = "java.lang.String",
+            example = "200",
+            required = true)
     public Integer getAmount() {
         return amount;
     }
@@ -78,6 +94,9 @@ public class AccountTransactionDto implements Serializable {
         this.amount = amount;
     }
 
+    @ApiModelProperty(position = 5,
+            dataType = "java.lang.String",
+            example = "2020-02-03")
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
@@ -86,6 +105,10 @@ public class AccountTransactionDto implements Serializable {
         this.transactionDate = transactionDate;
     }
 
+    @ApiModelProperty(position = 6,
+            dataType = "java.lang.String",
+            example = "add/subtract",
+            required = true)
     public String getDetails() {
         return details;
     }
